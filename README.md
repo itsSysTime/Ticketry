@@ -4,8 +4,9 @@ Ticketry is a Windows 10/11 forensic tool related to Windows activation. Formerl
 2. `stta2.exe` - Second edition that was developed. It requires online access to refer to [asdcorp\WindowsRentFree tickets](https://github.com/asdcorp/WindowsRentFree/Tickets) and pull them based on the system Pfn (_product family name_) under the registry key **HKLM\SYSTEM\CurrentControlSet\Control\ProductOptions** at subkey **OSProductPfn**. Useful for speed.
 3. `stta3.exe` - Third edition that was developed. It requires online access to fetch tickets from the same repository as `stta2.exe`, but only activates the current edition of Windows. Useful for speed.
 4. `ostta.exe` - Fourth (and previously Fifth before ticketgen.com was scrapped) edition that was developed. It is supported offline and instead creates a patched version of `gatherosstate.exe` manually by writing the bytes of an existing _gatherosstate.exe_ file and creates the GatherOsState file as so. It can be considered the most helpful, as it supports offline and online environments, but the _$raw_ variable defined in the script (PS1) is large.
+5. `ostta2.ps1` - Fifth edition that was developed. It is supported offline, and instead uses the latest MAS method by making the ticket using the RSA signature and the PFN provided based on the edition. Best edition, and smaller than `ostta.exe`.
 
-Each of these executables was compiled using the `PS2EXE` module. To extract and analyze one of these files for yourself, install the desired, open PowerShell as an Administrator, and execute these commands:
+Each of these executables was compiled using the `PS2EXE` module (excluding `ostta2.ps1`). To extract and analyze one of these files for yourself, install the desired, open PowerShell as an Administrator, and execute these commands:
 ```PowerShell
 cd "$parent-directory-of-file"
 .\$name-of-downloaded -extract:$name-of-extracted
@@ -45,7 +46,7 @@ Refer to the git-setup-guide file.
 This file has been deemed safe. To read the executable, refer to the description for steps to extract it. If you find the software in the repository hosted elsewhere, you can compare the **SHA256** hashes between the two and attempt to extract both with PS2EXE (The software here is extractable. If the externally hosted software is not, do not execute it).
 
 # Credits
-Thank you, Massgrave (or Massgravel) and asdcorp for inspiration and the use of your tools. This tool incorporates a few elements carried over, such as a patch of GatherOsState.exe. 
+Thank you, Massgrave (or Massgravel) and asdcorp for inspiration and the use of your tools. This tool incorporates a few elements carried over, such as a patch of GatherOsState.exe and creating the ticket using a PowerShell function. 
 # Networking notice
 Each method requires the device to have at least connected to a network using Ethernet, Wi-Fi, Internet, et cetera. After achieving a valid network connection for the first time, Windows will attempt to activate and register your device. This results in creating a digital license, which will remain on your hardware unless the hardware undergoes a significant change; however, it can be stored on a Microsoft account if the device was set up with one. So, each of these tools in the repository requires your hardware to be registered with Microsoft's licensing and activation servers.
 # Compatibility
