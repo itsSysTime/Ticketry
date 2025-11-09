@@ -250,14 +250,7 @@ Write-Host "`nSelected Edition: $selectedEdition"
 Write-Host "Using PFN: $pfn"
 Write-Host "Using RTM Key: $productKey"
 
-
-# === Step 2: Prepare Files Directory ===
-$filesPath = "C:\Files"
-if (!(Test-Path $filesPath)) {
-    New-Item -Path $filesPath -ItemType Directory
-}
-
-# === Step 3: Create Ticket Function
+# === Step 2: Create Ticket Function
 function SPPTicket {
     param (
         [string]$Pfn,
@@ -334,7 +327,7 @@ function SPPTicket {
     [System.IO.File]::WriteAllText($OutPath, $xml, [System.Text.Encoding]::ASCII)
 }
 
-# === Step 5: Generate Ticket ===
+# === Step 3: Generate Ticket ===
 SPPTicket -Pfn $pfn
 
 try {
@@ -345,7 +338,7 @@ try {
 }
 clipup.exe -v -o > $null 2>&1
 
-# === Step 6: Change Product Key ===
+# === Step 4: Change Product Key ===
 cls
 $keyChange = Read-Host "Install product key for $selectedEdition and activate? (Y/N)"
 if ($keyChange.ToUpper() -eq "Y") {
@@ -369,5 +362,5 @@ if ($keyChange.ToUpper() -eq "Y") {
 	Write-Host "Product key not installed for ticket. Please do this later manually, ignore it, or run the script again." -ForegroundColor Yellow
 }
 
-# === Step 7: Pause
+# === Step 5: Pause
 pause
